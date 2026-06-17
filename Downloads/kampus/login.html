@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITATAS FIX — Login</title>
+<link rel="stylesheet" href="_clean.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+.auth-card { width: 100%; max-width: 420px; }
+.hero-strip {
+  background: linear-gradient(135deg, var(--navy) 0%, #243970 100%);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  padding: 2rem 2rem 1.5rem;
+  text-align: center;
+  color: #fff;
+}
+.hero-strip .logo {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 1.9rem;
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+.hero-strip .logo span { color: #6ee7e7; }
+.hero-strip p { font-size: 13px; opacity: 0.65; margin-top: 4px; }
+.card-body {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow);
+}
+.input-icon-wrap { position: relative; }
+.input-icon-wrap i {
+  position: absolute;
+  left: 12px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 17px;
+  pointer-events: none;
+}
+.input-icon-wrap .form-control { padding-left: 38px; }
+</style>
+</head>
+<body>
+<div class="auth-wrap">
+  <div class="auth-card">
+
+    <div class="hero-strip">
+      <div class="logo">ITATAS<span>Fix</span></div>
+      <p>Sistem Pelaporan Kerusakan Kampus</p>
+    </div>
+
+    <div class="card-body">
+      <h3 style="font-size:1rem;margin-bottom:1.25rem;color:var(--navy);">Masuk ke Akun</h3>
+
+      <div id="errorMsg" class="alert alert-error" style="display:none;">
+        <i class="ti ti-alert-circle"></i>
+        Email atau password salah. Coba lagi.
+      </div>
+
+      <form action="login.php" method="POST">
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <div class="input-icon-wrap">
+            <i class="ti ti-mail"></i>
+            <input type="email" name="email" class="form-control" placeholder="user@kampus.ac.id" required autofocus>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="input-icon-wrap">
+            <i class="ti ti-lock"></i>
+            <input type="password" name="password" class="form-control" placeholder="Masukkan password" required>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <button type="submit" class="btn btn-primary btn-block mb-2">
+          <i class="ti ti-login"></i> Masuk
+        </button>
+
+        <p class="text-center fs-13 text-muted mt-2">
+          Belum punya akun? <a href="register.html" class="link">Daftar sekarang</a>
+        </p>
+      </form>
+    </div>
+
+    <p class="text-center text-muted fs-13 mt-2" style="padding-bottom:1rem;">
+      ITATAS FIX v2.0 &nbsp;·&nbsp; 2025
+    </p>
+  </div>
+</div>
+
+<script>
+const p = new URLSearchParams(window.location.search);
+if (p.get('error') === '1') {
+  document.getElementById('errorMsg').style.display = 'flex';
+}
+</script>
+</body>
+</html>
