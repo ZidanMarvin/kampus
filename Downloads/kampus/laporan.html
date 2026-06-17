@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITATAS FIX — Buat Laporan</title>
+<link rel="stylesheet" href="_clean.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+</head>
+<body>
+
+<nav class="cf-nav">
+  <a href="dashboard.php" class="brand">
+    <span class="dot"></span>
+    ITATAS<span>Fix</span>
+  </a>
+  <a href="dashboard.php" class="btn btn-outline" style="font-size:13px;padding:0.4rem 0.9rem;">
+    <i class="ti ti-arrow-left"></i> Kembali
+  </a>
+</nav>
+
+<div class="page-wrap-md">
+
+  <div class="section-header" style="margin-bottom:1.25rem;">
+    <div>
+      <div class="section-eyebrow">Form Pelaporan</div>
+      <h2>Laporan Kerusakan</h2>
+    </div>
+  </div>
+
+  <div class="card">
+    <form action="tambah_laporan.php" method="POST" enctype="multipart/form-data" id="laporanForm">
+
+      <input type="hidden" name="user_id" value="1">
+
+      <div class="form-group">
+        <label class="form-label">Judul Laporan</label>
+        <input type="text" name="judul" class="form-control" placeholder="Contoh: AC rusak di Ruang 301" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Kategori Kerusakan</label>
+        <div class="kat-grid">
+          <div>
+            <input type="radio" name="kategori" value="Lampu" id="k1" class="kat-radio" checked>
+            <label for="k1" class="kat-label">
+              <i class="ti ti-bulb"></i>Lampu
+            </label>
+          </div>
+          <div>
+            <input type="radio" name="kategori" value="AC" id="k2" class="kat-radio">
+            <label for="k2" class="kat-label">
+              <i class="ti ti-air-conditioning"></i>AC
+            </label>
+          </div>
+          <div>
+            <input type="radio" name="kategori" value="Toilet" id="k3" class="kat-radio">
+            <label for="k3" class="kat-label">
+              <i class="ti ti-droplet"></i>Toilet
+            </label>
+          </div>
+          <div>
+            <input type="radio" name="kategori" value="Kursi" id="k4" class="kat-radio">
+            <label for="k4" class="kat-label">
+              <i class="ti ti-armchair"></i>Kursi
+            </label>
+          </div>
+          <div>
+            <input type="radio" name="kategori" value="Internet" id="k5" class="kat-radio">
+            <label for="k5" class="kat-label">
+              <i class="ti ti-wifi"></i>Internet
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Lokasi</label>
+        <input type="text" name="lokasi" class="form-control" placeholder="Gedung / Ruangan / Lantai" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Deskripsi Detail</label>
+        <textarea name="deskripsi" class="form-control" rows="4" placeholder="Jelaskan kerusakan secara detail..." required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Foto Kerusakan <span class="text-muted fw-400">(opsional)</span></label>
+        <div class="drop-zone" id="dropZone">
+          <input type="file" name="foto" accept="image/*" id="fotoInput">
+          <i class="ti ti-photo-up"></i>
+          <p>Klik atau drag & drop foto di sini</p>
+        </div>
+        <img id="previewImg" src="" alt="preview">
+      </div>
+
+      <div class="divider"></div>
+
+      <button type="submit" class="btn btn-primary btn-block">
+        <i class="ti ti-send"></i> Kirim Laporan
+      </button>
+
+      <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<script>
+document.getElementById('fotoInput').addEventListener('change', function() {
+  const file = this.files[0];
+  if (!file) return;
+  const img = document.getElementById('previewImg');
+  img.src = URL.createObjectURL(file);
+  img.style.display = 'block';
+  document.querySelector('.drop-zone p').textContent = file.name;
+});
+
+document.getElementById('laporanForm').addEventListener('submit', function() {
+  const bar = document.getElementById('progressBar');
+  const fill = document.getElementById('progressFill');
+  bar.style.display = 'block';
+  let w = 0;
+  const iv = setInterval(() => {
+    w = Math.min(w + 8, 90);
+    fill.style.width = w + '%';
+    if (w >= 90) clearInterval(iv);
+  }, 100);
+});
+</script>
+</body>
+</html>
